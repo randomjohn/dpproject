@@ -1,0 +1,29 @@
+Flower classification
+========================================================
+author: John Johnson
+date: June 17, 2014
+
+Purpose
+========================================================
+
+To describe the class project for the Developing Data Products class, and my solution.
+
+Assignment
+========================================================
+
+To develop a shiny app, along with documentation.
+
+Solution
+========================================================
+
+The app classifies flowers as one of three species
+* setosa
+* virginica
+* versicolor
+
+The user may input the sepal length, sepal width, flower length, and flower width using sliders.
+
+Usage
+==========================================================
+
+To use the app, simply go to the app website, and use the sliders to input a potential new flower. To change the variables that are plotted, select them from the list boxes. The output will change immediately. 

@@ -10,16 +10,18 @@ library(shiny)
 shinyUI(pageWithSidebar(
   
   # Application title
-  headerPanel("Flower classifier"),
+  headerPanel("Iris classifier"),
   
   # Sidebar with a slider input for number of observations
   sidebarPanel(
+    p(a("Help",href="Readme.html")),
     h3("Plot variables"),
     selectInput("plotVar1","Show display variable for x-axis",
                 choices=list("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width")),
     selectInput("plotVar2","Show display variable for y-axis",
-                choices=list("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width")),
-    h3("Plant characteristics"),
+                choices=list("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width"),
+                selected="Sepal.Width"),
+    h3("Iris characteristics"),
     sliderInput("Petal.Length","Petal Length",1.0,6.9,4.0,0.1),
     sliderInput("Petal.Width","Petal Width",0.1,2.5,1.3,0.1),
     sliderInput("Sepal.Length","Sepal Length",4.3,7.9,6.0,0.1),
@@ -28,7 +30,7 @@ shinyUI(pageWithSidebar(
   
   # Show a plot of the generated distribution
   mainPanel(
-    h2("Flower species prediction, and relation to training set"),
+    h2("Iris species prediction, and relation to training set"),
     plotOutput("scatterPlot"),
     textOutput("predText")
   )

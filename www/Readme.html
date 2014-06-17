@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Data Product Project</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Data Product Project</h1>
+
+<h2>Purpose</h2>
+
+<p>The purpose of this document is to describe the <a href="https://class.coursera.org/devdataprod-002">Developing Data Products Class</a> class project and my solution to it.</p>
+
+<h2>Assignment</h2>
+
+<p>The assignment is as follows:</p>
+
+<blockquote>
+<p>Your Shiny Application</p>
+
+<p>Write a shiny application with associated supporting documentation. The documentation should be thought of as whatever a user will need to get started using your application.</p>
+
+<ul>
+<li>Deploy the application on Rstudio&#39;s shiny server</li>
+<li>Share the application link by pasting it into the text box below</li>
+<li>Share your server.R and ui.R code on github</li>
+</ul>
+
+<p>The application must include the following:</p>
+
+<ul>
+<li>Some form of input (widget: textbox, radio button, checkbox, &hellip;)</li>
+<li>Some operation on the ui input in sever.R</li>
+<li>Some reactive output displayed as a result of server calculations</li>
+<li>You must also include enough documentation so that a novice user could use your application.</li>
+<li>The documentation should be at the Shiny website itself. Do not post to an external link.</li>
+</ul>
+
+<p>The Shiny application in question is entirely up to you. However, if you&#39;re having trouble coming up with ideas, you could start from the simple prediction algorithm done in class and build a new algorithm on one of the R datasets packages. Please make the package simple for the end user, so that they don&#39;t need a lot of your prerequisite knowledge to evaluate your application. You should emphasize a simple project given the short time frame.</p>
+</blockquote>
+
+<h2>Solution</h2>
+
+<h3>Summary</h3>
+
+<p>In short, this app takes input for sepal length and width and petal length and width from the user and predicts the species based on the <code>iris</code> dataset in R. Yes, I know, it&#39;s the most used and abused dataset in the world, but I&#39;m keeping it simple based on the program&#39;s requirements. The app then plots the prediction along with the iris dataset according to the x and y axis that the user specifies, with each species colored differently.</p>
+
+<p>To use the program, simply change any of the inputs (list boxes for the graph axes and sliders for the new flower to be classified), and the plot and species will update automatically.</p>
+
+<h3>Input</h3>
+
+<p>The inputs for the prediction algorithm are as follows:</p>
+
+<ul>
+<li>Petal Length</li>
+<li>Petal Width</li>
+<li>Sepal Length</li>
+<li>Sepal Width</li>
+</ul>
+
+<p>These are input using sliders, with a range restricted to the range in the iris dataset and step size of 0.1.</p>
+
+<p>The inputs for the graph are the x and y axis names.</p>
+
+<p>The output updates automatically after any input is changed.</p>
+
+<h3>Output</h3>
+
+<p>The output is a scatterplot with the selected variables (even if they are the same!). Points are colored by species in the dataset. In addition, a point is plotted on the graph based on the inputs from the sliders, and colored according to the predicted class. Finally, the predicted class is printed below the plot.</p>
+
+<h3>Prediction algorithm</h3>
+
+<p>The prediction is based on the default classification tree as given by <code>rpart</code>. While it would have been better to do cross-validation on the algorithm or other pruning (or use a different algorithm), the purpose of the assignment was not to determine the best classification algorithm.</p>
+
+<h2>Other notes</h2>
+
+<ul>
+<li>Note that because of the prediction algorithm, the input point may have a prediction different from its apparent closest neighbors. This app may be used to explore the weirdness of a classification tree algorithm on even one of the simplest datasets.</li>
+<li>If you change one of the axis variables, you will see the point change location immediate (plus or minus lag associate with the network or server). If you change one of the variables that are not axis variables, the color may change if the classification changes, but otherwise will not change location.</li>
+<li>For best results, change the axes to be the width and length of the same item. However, the other views may be fruitful.</li>
+</ul>
+
+</body>
+
+</html>
+
