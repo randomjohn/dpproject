@@ -7,9 +7,15 @@
 library(shiny)
 
 data(iris)
+# fit the classification algorithm
 library(rpart)
 fit <- rpart(Species~.,data=iris)
-
+# jitter points for plotting
+iris2 <- iris
+for (i in 1:4) {
+  iris2[,i] <- jitter(iris[,i])
+}
+  
 shinyServer(function(input, output) {
   
   # predict species of input characteristics
@@ -28,7 +34,7 @@ shinyServer(function(input, output) {
   })
   # render plot, with prediction and legend
   output$scatterPlot <- renderPlot({
-      plot(iris[,input$plotVar1],iris[,input$plotVar2],xlab=input$plotVar1,ylab=input$plotVar2,col=mycols);
+      plot(iris2[,input$plotVar1],iris2[,input$plotVar2],xlab=input$plotVar1,ylab=input$plotVar2,col=mycols);
       points(input[[input$plotVar1]],input[[input$plotVar2]],pch=19,col=mypredcol());
       legend("bottomright",c("setosa","versicolor","virginica","predicted"),col=c("black","blue","red",mypredcol()),pch=c(1,1,1,19))
   })
